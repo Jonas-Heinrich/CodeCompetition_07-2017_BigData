@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Code Competition</title>
+        
+        <!--
+            Frameworks
+        -->
+        
+        <script src="js/frameworks/Chart.min.js"></script>
+        
+        <!--
+            CSS
+        -->
+        
+        <link rel="stylesheet" href="css/styles.css">
+        
+        <!--
+            JS
+        -->
+                
+        <script src="js/index.js"></script>
+        <script src="js/animation.js"></script>
+        <script src="js/language.js"></script>
+        
+        <!--
+            Solution
+        -->        
+        <script src="js/solution/main.js"></script>
+        <script src="js/solution/Processing.js"></script>
+        <script src="js/solution/Output.js"></script>
+        <script src="js/solution/PlayerDataInterpreter.js"></script>
+    </head>
+    <body>
+        <div id="Banner"> 
+            
+            <div id="BannerBackground"></div>
+            
+            <div id="LanguageContainer">
+                <span class="LanguageButton" onclick="SetLanguage(0)">German</span>
+                <span class="LanguageButton" onclick="SetLanguage(1)">English</span>
+            </div>
+            
+            <div id="BannerContainer">
+                <h1>Code Competition July 2017</h1>
+                <h2>Big Data</h2>
+                
+                <div class="Seperator"></div>
+                
+                <h2>Jonas Heinrich</h2>
+                
+                <div class="Button GreenButton" id="StartButton" onclick="Start();">Start</div>
+                
+            </div>
+            
+            <div id="LoadingAnimationContainer">
+                <div id="LoadingAnimationContent">
+                    <h1>Loading data....</h1>
+                    <div class="LoadingAnimation" id="DataLoadingAnimation"></div>
+                    
+                    <p>The following application needs to load data in order to function!</p>
+                </div>
+            </div>
+        </div>
+        <div class="Content" id="MainContent">
+            <!--
+                    About the competition
+            -->
+            <div>
+                <div class="SectionTitleContainer" onclick="ExpandMainSection(0);">
+                    <img class="Arrow" src="img/arrow.png">
+                    <h1 class="SectionTitle">About the Competition</h1>
+                </div>
+                <div class="SectionContent">
+                    <h2 id="AboutCompetition_Context">Context</h2>
+                    
+                    <p id="AboutCompetition_Context_P1">This competition is from a German website (<a href="https://www.it-talents.de/" target="_blank">it-talents.de</a>) dedicated to encouraging young IT talent. It took place in July 2017 and was sponsored by an IT company.</p>
+                    
+                    <p id="AboutCompetition_Context_P2">The following content is not my intellectual property, I just translated it to give some context and present it in a portfolio-worthy way.</p>
+                    
+                    <a href="https://www.it-talents.de/foerderung/code-competition/code-competition-07-2017" target="_blank">Link</a>
+                    
+                    <h2 id="AboutCompetition_Introduction">Introduction</h2>
+                    
+                    <div id="AboutCompetition_Introduction_D1">
+                        <p>
+                            Big Data is on everyone&#39;s lips. Data is knowledge and knowledge is power. But what is the point behind this saying and the buzzword &quot;Big Data&quot;?<br>
+                            That is what we want to deal with in this Code Competition. &quot;Big Data&quot; is about the evaluation of large amounts of data. The evaluation firstly consists of processing, so that it can be automatically analyzed by appropriate algorithms. Then it is about the recognition of patterns and connections within the data to ultimately derive knowledge and visualize it.<br>
+                            The following steps are therefore important:
+                        </p>
+                        <ul>
+                            <li>Processing</li>
+                            <li>Pattern Recognition</li>
+                            <li>Knowledge derivation</li>
+                            <li>Visualize the results</li>
+                        </ul>
+		
+                    </div>
+                    
+                    <h2 id="AboutCompetition_Input">Input</h2>
+                    
+                    <div>
+                        <p id="AboutCompetition_Input_P1">
+                            We provide you with data from a racing game. In this record you will find 160,000 races.<br>
+                            Out of this (meta)data you can already make interesting statements (Who drives when preferably and against whom races? Won or lost?) and derive predictions.<br>
+                            Tip: Filter the entries based on the questions you ask it.
+                        </p>
+                        
+                        <h3 id="AboutCompetition_AboutData">About the Data</h3>
+                        
+                        <div id="AboutCompetition_Input_D1">
+                            <p>The data contains the following information/columns:</p>
+                            <ul>
+                                <li>ID: The ID of the Entry</li>
+                                <li>race_created: When was the race planned?</li>
+                                <li>race_driven: When did the race take place?</li>
+                                <li>track_id: ID of the racetrack where the race took place.</li>
+                                <li>challenger: userID of the challenger</li>
+                                <li>opponent: userID of the enemy (challenged)</li>
+                                <li>
+                                    money: Bet on the race (in EUR)
+                                </li>
+                                <li>
+                                    fuel_consumption: Fuel consumption of the participants during the race (in l)
+                                </li>
+                                <li>
+                                    winner: Winner of the race (userID)
+                                </li>
+                                <li>
+                                    status: The status of the race. Possible are: waiting, finished, retired, declined
+                                </li>
+                                <li>
+                                    <p>
+                                        forecast: Weather forecast for the race.<br>a:4:{s:5:&quot;sunny&quot;;i:10;s:5:&quot;rainy&quot;;i:70;s:8:&quot;thundery&quot;;i:0;s:5:&quot;snowy&quot;;i:20;}<br> The a:4 indicates a serialized array with 4 data pairs. The content of the array is between the curly braces. Every data pair represents a kind of weather and the probability of its occurrence. The kinds of weather (entries in the array) are separated by semi colons. There are 4 types of weather (sunny rainy, thundery, snowy). In front of every kind there is an „s:“ and an integer. The integer describes the length of the following string (e.g. sunny 5 characters, thundery 8 and so on). Behind the type of weather there is also an „i:“ and another integer. The number behind the i (i for integer) describes the likelihood of the weather happening in percent.<br>
+                                    </p>
+                                </li>
+                                <li>weather: Actual weather</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h2 id="AboutCompetition_Task">Task</h2>
+                    
+                    <div id="AboutCompetition_Task_D1">
+                        <ul>
+                            <li>Put exciting questions to the data</li>
+                            <li>Evaluate the data based on the questions</li>
+                            <li>Visualize the insights/results</li>
+                            <li>Optional: Output predictions about future races and race results for different driver-ids.</li>
+                        </ul>
+                        <p>Of course you can implement additional features ;)</p>
+                    </div>
+                    
+                    <h2 id="AboutCompetition_Review">Review</h2>
+                    
+                    <div id="AboutCompetition_Review_D1">
+                        <p>What do we pay attention to while evaluation your solution?</p>
+                        
+                        <ul>
+                            <li>Functionality: Is you program easily operable? Does the application or the function what it should? How extensive are the functions?</li>
+                            <li>Code Quality: Is the code rationally structured and efficient?</li>
+                            <li>Code Readability / Documentation: Is the code retracable? Is the code commented?</li>
+                            <li>Setup: Is the system easily set up? (e.g. via good documentation, a Docker, Vagrant, Script, or similar)</li>
+                            <li>README: Is a README file included, that shows, how the application can be executed?</li>
+                            <li>Which additional features were implemented?</li></ul>
+                    </div>
+                </div>
+            </div>
+            <!--
+                    My Solution
+            -->
+            <div>
+                <div class="SectionTitleContainer" onclick="ExpandMainSection(1);">
+                    <img class="Arrow" src="img/arrow.png">
+                    <h1 class="SectionTitle">My Solution</h1>
+                </div>
+                <div class="SectionContent">
+                    <!-- Example Raw Data -->
+                    <div>
+                        <img class="SolutionSectionArrow" src="img/arrow.png">
+                        <h2 class="SolutionSectionTitle" onclick="ExpandSolutionSection(0);">The Raw Data</h2>
+                        <div class="SolutionSectionContent">
+                            <p id="SolutionContent_RawData_P1">The following table displays an example of the data that is used in this application.</p>
+                            
+                            <table id="Table_RawData">
+                                <tr class="TableHead">
+                                    <th>ID</th>
+                                    <th>race_created</th>
+                                    <th>race_driven</th>
+                                    <th>track_id</th>
+                                    <th>challenger</th>
+                                    <th>opponent</th>
+                                    <th>money</th>
+                                    <th>fuel_consumption</th>
+                                    <th>winner</th>
+                                    <th>status</th>
+                                    <th>forecast</th>
+                                    <th>weather</th>
+                                </tr>
+                            </table>
+                            
+                            <p id="SolutionContent_RawData_P2">Displaying 100 of ~160,000 rows</p>
+                        </div>
+                    </div>
+                    <!-- General Data -->
+                    <div>
+                        <img class="SolutionSectionArrow" src="img/arrow.png">
+                        <h2 class="SolutionSectionTitle" onclick="ExpandSolutionSection(1);">General Data</h2>
+                        <div class="SolutionSectionContent">                            
+                            <div class="GroupBox">
+                                <h3 class="ImageCollectionDescription"></h3>
+                                <div class="ImageCollection"></div>
+                                
+                                <div class="ImageCollectionScale">
+                                    <img src="img/icons/document.png" class="ImageCollectionScaleItem"><div class="ImageCollectionScaleItemDescription"> = 1000 Entries</div>
+                                </div>
+                            </div>
+                            
+                            <div class="GroupBox">
+                                <h3 class="ImageCollectionDescription"></h3>
+                                <div class="ImageCollection"></div>
+                                
+                                <div class="ImageCollectionScale">
+                                    <img src="img/icons/flag.png" class="ImageCollectionScaleItem"><div class="ImageCollectionScaleItemDescription"> = 1000 Races</div>
+                                </div>
+                            </div>
+                            
+                            <div class="GroupBox">
+                                <h3 class="ImageCollectionDescription"></h3>
+                                <div class="ImageCollection"></div>
+                                
+                                <div class="ImageCollectionScale">
+                                    <img src="img/icons/driver.png" class="ImageCollectionScaleItem"><div class="ImageCollectionScaleItemDescription"> = 100 Drivers</div>
+                                </div>
+                            </div>
+                            
+                            <div class="GroupBox">
+                                <h3 class="ImageCollectionDescription"></h3>
+                                <div class="ImageCollection"></div>
+                                
+                                <div class="ImageCollectionScale">
+                                    <img src="img/icons/fuel.png" class="ImageCollectionScaleItem"><div class="ImageCollectionScaleItemDescription"> = 10000 l of fuel</div>
+                                </div>
+                            </div>
+                            
+                            <div class="GroupBox">
+                                <h3 class="ImageCollectionDescription"></h3>
+                                <div class="ImageCollection"></div>
+                                
+                                <div class="ImageCollectionScale">
+                                    <img src="img/icons/money.png" class="ImageCollectionScaleItem"><div class="ImageCollectionScaleItemDescription"> = 10,000,000 &euro; placed</div>
+                                </div>
+                            </div>
+                            
+                            <div class="GroupBox">
+                                <h3 class="SolutionSubSectionTitle">Activity</h3>
+                                
+                                <canvas class="SolutionChart" id="ActivityChart"></canvas>
+                                
+                                <p id="SolutionSubSectionTitle_Activity_P1">This graph shows the typical lifecycle of a video game. At release it starts off very strong, but as time goes on it loses popularity.<br>
+                                With the introduction of new content (such as DLC, add-ons, etc.) or a sale, player numbers climb in the short term, leading to spikes in activity. As more and more players leave the game however, there is a lack of player engagement (especially in a multiplayer game) which accelerates the downward trend.</p>
+                                
+                                <p id="SolutionSubSectionTitle_Activity_P2">After a year the game fades into irrelevance as new titles are released and developers as well as players move on to the next title.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Track Data -->
+                    <div>
+                        <img class="SolutionSectionArrow" src="img/arrow.png">
+                        <h2 class="SolutionSectionTitle" onclick="ExpandSolutionSection(2);">Track Data</h2>
+                        <div class="SolutionSectionContent">
+                            <div class="GroupBox">
+                                <h3 class="SolutionSubSectionTitle">Most Played Track</h3>
+                                
+                                <div class="PlacementWrapper1st">
+                                    <img class="PlacementIcon" src="img/placement/1st.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/2nd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/3rd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="SolutionSubSectionTitle">Track Composition</h3>
+                                
+                                <div>
+                                    <h4 class="TrackDataTitle">Popularity over Time</h4>
+                                    <canvas class="SolutionChart" id="TrackTimeDevelopmentChart"></canvas>
+                                </div>
+                                <div>
+                                    <h4 class="TrackDataTitle">Total Popularity | Bar  Chart</h4>
+                                    <canvas class="SolutionChart" id="TrackCountChart"></canvas>
+                                </div>
+                                <div class="ChartWrapper50">
+                                    <h4 class="TrackDataTitle">Total Popularity | Pie Chart</h4>
+                                    <canvas class="SolutionChart" id="TrackCompositionChart"></canvas>
+                                </div>
+                                
+                                <h3 class="TrackConclusionTitle">Conclusion</h3>
+                                <div class="TrackDataConclusion">Track Number 12 trumps all other tracks in terms of popularity, it makes up more than half of all races played and this is reflected in the popularity over time as well.<br>As a game developer, I would further examine the success of the race track as well as the failure of the other tracks. Influencing factors that come to mind are difficulty, weather, length, reward in terms of money and risk.<br>Because of the limited nature of the data set, this can not be deducted clearly, however, it is possible to make educated guesses.</div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="SolutionSubSectionTitle">Average Fuel Consumption</h3>
+                                
+                                <div>
+                                    <canvas class="SolutionChart" id="TrackFuelChart"></canvas>
+                                </div>
+                                
+                                <h3 class="TrackConclusionTitle">Conclusion</h3>
+                                <div class="TrackDataConclusion">The range of the amount of fuel that is needed to complete the race varies significantly. Given that distance is roughly proportional to the distance travelled, one can deduct that track number 12 is neither very long nor short. This might be a factor that increases its popularity.<br>The other two most popular tracks (Nr. 3 and 5) are on the slightly longer and shorter side of Track 12.<br>Of course there can be game mechanics (different cars, different victory conditions with non-fixed lengths) that are not visible in this dataset and therefore lead to false conclusions.</div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="SolutionSubSectionTitle">Average Money Placement</h3>
+                                
+                                <div>
+                                    <canvas class="SolutionChart" id="TrackMoneyChart"></canvas>
+                                </div>
+                                
+                                <h3 class="TrackConclusionTitle">Conclusion</h3>
+                                <div class="TrackDataConclusion">Track number 6 and 7 actually attract more money placements than Track 12. A clear reason is not easily deductable in this context, one should review the game in depth and conclude from that.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Weather Data -->
+                    <div>
+                        <img class="SolutionSectionArrow" src="img/arrow.png">
+                        <h2 class="SolutionSectionTitle" onclick="ExpandSolutionSection(3);">Weather Data</h2>
+                        <div class="SolutionSectionContent">
+                            
+                            <div class="GroupBox">
+                                <h3 class="WeatherDataTitle">Weather Distribution</h3>
+                                
+                                <div class="ChartWrapper50">
+                                    <canvas class="SolutionChart" id="WeatherDistributionChart"></canvas>
+                                </div>
+                                
+                                <h3 class="WeatherConclusionTitle">Conclusion</h3>
+                                <div class="WeatherDataConclusion">The Distribution of the overall weather can be roughly described by these percentages: <br>50% sunny, 25% rainy, 12.5% thundery, 12.5% snowy.<br>
+                                The developers of the game probably chose these values to fulfill an aesthetic aspect as well as a mood oriented one. Most humans prefer sunny weather but in order to keep it interesting occasional rain, thunder or snow is added.</div>
+                                <div class="Clearer"></div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="WeatherDataTitle">Weather on Tracks</h3>
+                                
+                                <table id="WeatherTrackTable">
+                                </table>
+                                
+                                <h3 class="WeatherConclusionTitle">Conclusion</h3>
+                                <div class="WeatherDataConclusion">One can clearly see that the pattern above is repeated for each track. I am a bit surprised to see no big difference, e.g. based on the region where the track might be placed (desert vs subpolar).<br>
+                                The slight variance of some tracks can be attributed to the small number of times that they have been tracked.
+                                </div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="WeatherDataTitle">Weather Prediction Correctness</h3>
+                                
+                                <h4 class="WeatherDataSubTitle">Average Deviation</h4>
+                                <h3 id="WeatherDataAverageDeviation"></h3>
+                                
+                                <h4 class="WeatherDataSubTitle">Weather Type Average Deviation</h4>
+                                
+                                <table id="WeatherTypeAverageDeviation">
+                                </table>                         
+                                
+                                <h3 class="WeatherConclusionTitle">Conclusion</h3>
+                                <div class="WeatherDataConclusion">The Average Deviation of the weather from the forecast is miniscule. Altough the variance increases with the weather type it is pretty accurate.<br>
+                                With larger and larger data amounts and an actual random number generator (not pseudo random) the deviation will approach 0.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Player Data -->
+                    <div>
+                        
+                        <img class="SolutionSectionArrow" src="img/arrow.png">
+                        <h2 class="SolutionSectionTitle" onclick="ExpandSolutionSection(4);">Player Data</h2>
+                        <div class="SolutionSectionContent" id="PlayerSection">
+                            <div id="WhatIsELO">What is ELO? <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank">It is a concept from chess.</a></div>
+                            
+                            <div id="PlayerDataLoadingOverlayWrapper">
+                                <div id="PlayerDataLoadingOverlay">
+                                    <h3>Data Loading...</h3>
+                                    
+                                    <div class="LoadingAnimation"></div>
+                                </div>
+            
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="PlayerDataTitle">General Player Stats</h3>
+                                
+                                <h4 class="PlayerDataSubTitle">Average Number of Races</h4>
+                                <div class="ImageCollection"></div>
+                                <p class="ImageCollectionDescription"></p>
+                                
+                                <h4 class="PlayerDataSubTitle">Average ELO</h4>
+                                <div id="PlayerDataContentELO"></div>
+                            
+                                <div class="ChartWrapper50">
+                                    <h4 class="PlayerDataSubTitle">Average Acceptance Rate</h4>
+                                    <div>
+                                        <canvas class="SolutionChart" id="PlayerAcceptanceRateChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="ChartWrapper50">
+                                    <h4 class="PlayerDataSubTitle">Challenger Win Rate</h4>
+                                    <div>
+                                        <canvas class="SolutionChart" id="PlayerChallengerWinRateChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="PlayerDataTitle">The Top Players</h3>
+                                
+                                <div class="PlacementWrapper1st">
+                                    <img class="PlacementIcon" src="img/placement/1st.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/2nd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/3rd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                
+                                <table id="PlayerDataTable_TopPlayers"></table>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="PlayerDataTitle">The Most Experienced Players</h3>
+                                
+                                <div class="PlacementWrapper1st">
+                                    <img class="PlacementIcon" src="img/placement/1st.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/2nd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/3rd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                
+                                <table id="PlayerDataTable_ExperiencedPlayers"></table>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="PlayerDataTitle">The Most Economic Players</h3>
+                                
+                                <div class="PlacementWrapper1st">
+                                    <img class="PlacementIcon" src="img/placement/1st.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/2nd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                <div class="PlacementWrapper23">
+                                    <img class="PlacementIcon" src="img/placement/3rd.jpg">
+                                    <h3 class="PlacementTitle"></h3>
+                                </div>
+                                
+                                <table id="PlayerDataTable_EconomicPlayers"></table>
+                                
+                                <h3 class="PlayerConclusionTitle">Conclusion</h3>
+                                <div class="PlayerDataConclusion">The players that are listed here do use so little fuel per game for two reasons that do not necessarily correlate with skill.<br>
+                                First, they lose a lot of their games; either they quit, have connection problems, are trolling or are just really bad drivers.<br>
+                                Additionally there are errors in the fuel data set. Not all the rows have actual numbers in them, some contain information like &apos;Jan 17
+                                &apos;, &apos;Apr 35&apos; or &apos;Feb 61&apos;. These have nothing to do with fuel (rather date?) and therefore have to be ignored, with no extra fuel added.
+                                </div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="PlayerDataTitle">Detailed Player Analysis</h3>
+                                
+                                <div class="Button DPA_Selector" onclick="DecreaseID(0);">&lt;&lt;</div>
+                                <input type="number" class="DPA_PlayerSelector" value="48" oninput="ProcessPDDetailedPlayerAnalysisPlayerData(0);">
+                                <div class="Button DPA_Selector" onclick="IncreaseID(0);">&gt;&gt;</div>
+                                <div class="Clearer"></div>
+                                
+                                <h2 id="DPAPlayerID"></h2>
+                                <p id="DPAExists"></p>
+                                
+                                <h4 class="PlayerDataSubTitle">Overview</h4>
+                                <table id="PlayerDataTableDetail">
+                                
+                                </table>
+                                
+                                <div class="ChartWrapper50 ChartMiddle">
+                                    <h4 class="PlayerDataSubTitle">Win Rate</h4>
+                                    <div>
+                                        <canvas class="SolutionChart" id="PlayerWinRate"></canvas>
+                                    </div>
+                                </div>
+                                <div class="Clearer"></div>
+                                <div>
+                                    <h4 class="PlayerDataSubTitle">Activity over long time</h4>
+                                    <div>
+                                        <canvas class="SolutionChart" id="PlayerActivityLong"></canvas>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="PlayerDataSubTitle">Daily Activity</h4>
+                                    <div>
+                                        <canvas class="SolutionChart" id="PlayerActivityDaily"></canvas>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="PlayerDataSubTitle">Enemies</h4>
+                                    <div>
+                                        <canvas class="SolutionChart" id="PlayerEnemys"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="GroupBox">
+                                <h3 class="PlayerDataTitle">Race Prediction</h3>
+                                <div class="ChartWrapper50">
+                                    <h4>PlayerID #1</h4>
+                                    <div class="Button DPA_Selector" onclick="DecreaseID(1);">&lt;&lt;</div>
+                                    <input type="number" class="DPA_PlayerSelector" value="48" oninput="ProcessPDRacePrediction();">
+                                    <div class="Button DPA_Selector" onclick="IncreaseID(1);">&gt;&gt;</div>
+                                </div>
+                                <div class="ChartWrapper50">
+                                    <h4>PlayerID #2</h4>
+                                    <div class="Button DPA_Selector" onclick="DecreaseID(2);">&lt;&lt;</div>
+                                    <input type="number" class="DPA_PlayerSelector" value="46" oninput="ProcessPDRacePrediction();">
+                                    <div class="Button DPA_Selector" onclick="IncreaseID(2);">&gt;&gt;</div>
+                                </div>
+                                <div class="Clearer"></div>
+                                <div>
+                                    <table id="RacePredictionTable">
+                                    
+                                    </table>
+                                    
+                                    <h2 id="Winner"></h2>
+                                    
+                                    <div class="ChartWrapper50 ChartMiddle">
+                                        <canvas class="SolutionChart" id="PlayerChances"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+            <!--
+                    About my Solution
+            -->
+            <div>
+                <div class="SectionTitleContainer" onclick="ExpandMainSection(2);">
+                    <img class="Arrow" src="img/arrow.png">
+                    <h1 class="SectionTitle">About my Solution</h1>
+                </div>
+                <div class="SectionContent">
+                    <h2>General FAQ</h2>
+                    
+                    <div>
+                        <img class="FAQArrow" src="img/arrow.png">
+                        <h3 class="FAQQuestion" onclick="ExpandFAQSection(0);">Why did you take part in this competition?</h3>
+                        <div class="FAQAnswer">
+                            I did take part in this competition because of several reasons.<br>
+                            First and most importantly I want to gain experience. Additionally I want to make contacts in the industry, have a chance of winning a price and of course have fun while programming!
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <img class="FAQArrow" src="img/arrow.png">
+                        <h3 class="FAQQuestion" onclick="ExpandFAQSection(1);">Why did you choose the web for this task?</h3>
+                        <div class="FAQAnswer">
+                            I chose the web because it is platform independent, easy to use and very accessible. For many of my future projects I will need a website, so therefore having had experience with it previously is very beneficial.
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <img class="FAQArrow" src="img/arrow.png">
+                        <h3 class="FAQQuestion" onclick="ExpandFAQSection(2);">Why did you choose Python / JavaScript for this task?</h3>
+                        <div class="FAQAnswer">
+                            I chose Python because it is fast to program in. The data is converted by Python to a permanent output, therefore the greater execution time does not really matter.<br>
+                            And I had to pick JavaScript because of the way the web works.
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <img class="FAQArrow" src="img/arrow.png">
+                        <h3 class="FAQQuestion" onclick="ExpandFAQSection(3);">How long did it take to develop this solution?</h3>
+                        <div class="FAQAnswer">
+                            It is hard to come up with an exact number but I would put it around 20-30 hours. The majority of the time was actually not taken up by the back end, but rather the front end.
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <img class="FAQArrow" src="img/arrow.png">
+                        <h3 class="FAQQuestion" onclick="ExpandFAQSection(4);">What tools did you use?</h3>
+                        <div class="FAQAnswer">
+                            <ul>
+                                <li><b>Notepad++</b> (Code Editor; JavaScript, Python)</li>
+                                <li><b>Brackets</b> (Code Editor; HTML, CSS)</li>
+                                <li><b>Chrome</b> (Browser, Debugger)</li>
+                                <li><b>Firefox</b> (Browser)</li>
+                                <li><b>XAMPP</b> (Server; Loading Time Checker)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <img class="FAQArrow" src="img/arrow.png">
+                        <h3 class="FAQQuestion" onclick="ExpandFAQSection(5);">What did you learn?</h3>
+                        <div class="FAQAnswer">
+                            The most important lesson to me is that I take more time to actually implement a project than I thought. It also taught me a valuable lesson about patience and just doing it.<br>
+                            I have already used the basic technologies that are involved here, except ChartJS, so I gained not much new knowledge but <b>experience</b>.
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <img class="FAQArrow" src="img/arrow.png">
+                        <h3 class="FAQQuestion" onclick="ExpandFAQSection(6);">What would you have done differently?</h3>
+                        <div class="FAQAnswer">
+                            The language system. Normally you would do this on the server side but I did not want to do it here for reasons that I do not want to clarify (I have done it successfully before).<br>
+                            But having this implementation of the system (see documentation) was just a pain, altough the concept is not bad in general (e.g. Android language files).
+                        </div>
+                    </div>
+                    
+                    <h2>Documentation</h2>
+                    
+                    <p>The application is based on two parts. A backend written in Python and a frontend written in JavaScript/CSS/HTML.<br>Python takes the provided input file and processes it to get an ouput which it then saves as a JavaScript file. The JavaScript on the webpage then takes this information and displays it.</p>
+                    
+                    <h3>Python</h3>
+                    <p>The Python scripts can be found in the repository (INSERT GITHUB HERE) under /src/processing/.</p>
+                    
+                    <h4>The Data</h4>
+                    <p>For specifics on the data please review <b>About this competition</b>.</p>
+                    
+                    <h4>Main.py</h4>
+                    
+                    <p>This file contains the high level logic of the processing script. It coordinates the processing, and accumulates the results of the respective parts in a variable.</p>
+                    
+                    <p>It then saves these results in two files to the JavaScript solution directory. There are two files which are split because of the time it takes to load the player data. DataCollection.js contains the data for the sections <b>The Raw Data</b>, <b>General Data</b>, <b>Track Data</b> and <b>Weather Data</b>. PlayerDataCollection.js contains all <b>Player Data</b>.</p>
+                    
+                    <h4>DataItem.py</h4>
+                    
+                    <p>This file contains the definition for the DataItem class. It is used to store all the data for every race in races.csv.</p>
+                    
+                    <p>It takes a line as a parameter and parses it to extract the necessary data. The data can then be accessed by calling its properties. It also has methods to simplify conditionals.</p>
+                    
+                    <h4>Parse.py</h4>
+                    
+                    <p>This file contains the code that handles the parsing of races.csv. The GetInput() method returns an array of DataItem(s).</p>
+                    
+                    <h4>Output.py</h4>
+                    
+                    <p>This file contains useful functions for generating json strings from an object, specifically a list or a dictionary.</p>
+                    
+                    <h4>PlayerItem.py</h4>
+                    
+                    <p>This file contains the definition of the PlayerItem class. It is used to store information about a player.</p>
+                    
+                    <p>It takes a player id as a parameter. Through public properties and a variety of methods it is possible to manipulate data about a player. This data can then be turned into a json string.</p>
+                    
+                    <h4>Processing.py</h4>
+                    
+                    <p>This file contains the core of the application. It contains functions for every data segment of the website. Each function takes the parsed data as an input, further processes it and returns a JSON string.</p>
+                    
+                    <h3>JavaScript</h3>
+                    
+                    <p>The JavaScript files can be found in the repository (INSERT GITHUB) under /src/output/js. </p>
+                    
+                    <h3>JavaScript - Behaviour</h3>
+                    
+                    <h4>index.js</h4>
+                    
+                    <p>This file contains the main behaviour of the website. Any button clicks on the website lead to a function that is called in index.js.</p>
+                    
+                    <h4>animation.js</h4>
+                    
+                    <p>Animation.js contains various functions for animating and manipulating html elements. It does not act itself, rather is it mainly called from outside to manipulate.</p>
+                    
+                    <h4>Language.js</h4>
+                    
+                    <p>Language.js contains the logic that is needed to display the correct language.</p>
+                    
+                    <p>
+                        There are 2 types of language resources. The LanguageEntries and the LanguageRepository. The former contains an array of LanguageEntry(s), which are used to automatically update the language of the website by saving its class name / id and the piece of text associated with it.<br>
+                        The LanguageRepository is an object which is used by other pieces of code to get a certain string that is identified by another unique string identifier.
+                    </p>
+                    
+                    <h3>JavaScript - Solution</h3>
+                    
+                    <h4>main.js</h4>
+                    
+                    <p>main.js contains the top level logic of the solution. It is responsible for calling the processing methods and finishing the loading animations once the data is loaded.</p>
+                    
+                    <h4>DataCollection.js</h4>
+                    
+                    <p>DataCollection.js is generated by the Python code and contains all the relevant data for the Raw Data, General Data, Track Data and Weather Data section. It contains a JavaScript object that can be accessed by the other pieces of code in a structured way.</p>
+                    
+                    <h4>PlayerDataCollection.js</h4>
+                    
+                    <p>PlayerDataCollection.js is generated by the Python code as well and contains all the relevant data for the Player Data section. It expands the JavaScript object DataCollection.</p>
+                    
+                    
+                    <h4>PlayerDataInterpreter.js</h4>
+                    
+                    <p>
+                        PlayerDataInterpreter.js is the interface that the other code uses to access the player data section in the DataCollection object.<br>
+                        The PlayerData is generated as an unstructured array in order to save space. In order to make programming easier, the Interpreter provides methods that accesses certain data in the array and returns it parsed and ready to use.<br>
+                        An important note is that the player id and the index in the player data array do not correlate. Some player ids do not show up in the dataset and would therefore be wasted space. Whenever you read playerIndex (or just index), it means the actual index in the array and playerID (or just id) means an actual playerID that might not even exist in the data.
+                    </p>
+                    
+                    <h4>Output.js</h4>
+                    
+                    <p>
+                        Output.js contains various functions that are used by other code to display the data on the screen. It can build image collections, placements, tables and charts.
+                    </p>
+                    
+                    <h4>Processing.js</h4>
+                    
+                    <p>
+                        Processing.js is the core of the website. It takes the data from the DataCollection object and displays it in a meaningful way.<br>
+                        Each section has its own dedicated distributor function that in turn has more functions for every solution section. The functions are executed in async and are called by main.js when the data has loaded.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script src="js/solution/DataCollection.js"></script>
+        <script src="js/solution/PlayerDataCollection.js"></script>
+    </body>
+</html>
+        
